@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Science+Gothic:wdth,wght,CTRS@110,100..900,13&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-science: "Science Gothic", sans-serif;
+  --color-primary-blue: #0069A8;
+  --color-text-dark-blue: var(--text-dark-blue);
+  --color-background-white: var(--background-white);
+  --color-noise-color: #007BC4;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+:root {
+  --primary-blue: #0069A8;
+  --text-dark-blue: #010520;
+  --background-white: #EBF5FA;
+  --noise-color: #007BC4;
+  --background-image: url('/assets/images/banners/background.jpg');
+}
+
+:root.dark {
+  --text-dark-blue: #F8FAFC;
+  --background-white: #061423;
+  --background-image: url('/assets/images/banners/background dark.jpg');
+}
+
+html, body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-dark-blue);
+  background-color: var(--background-white);
+  background-image: var(--background-image);
+  background-repeat: repeat;
+  background-size: 400px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Scrollbar for a premium look */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0069A8;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #007BC4;
+}
+
+@media (min-width: 1024px) {
+  div#root:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) {
+    zoom: 1.13;
+  }
+}

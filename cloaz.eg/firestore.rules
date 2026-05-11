@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper for IDs
+    function isValidId(id) { 
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); 
+    }
+
+    // Orders collection
+    match /orders/{orderId} {
+      allow create: if isValidOrder(request.resource.data);
+      allow read, update, delete: if false; 
+      
+      function isValidOrder(data) {
+        return data.customerName is string && data.customerName.size() <= 200
+            && data.phoneNumber is string && data.phoneNumber.size() >= 10 && data.phoneNumber.size() <= 20
+            && data.address is string && data.address.size() <= 500
+            && data.items is list && data.items.size() > 0 && data.items.size() <= 50
+            && data.totalPrice is number && data.totalPrice >= 0
+            && data.createdAt == request.time
+            && data.status == 'pending'
+            && data.keys().hasAll(['customerName', 'phoneNumber', 'address', 'items', 'totalPrice', 'createdAt', 'status', 'paymentMethod', 'walletInfo']);
+      }
+    }
+  }
+}

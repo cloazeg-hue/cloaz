@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Product collection details",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "oldPrice": { "type": "number" },
+        "stock": { "type": "number", "description": "Available inventory count" },
+        "mainImage": { "type": "string" },
+        "hovering": { "type": "string" },
+        "detailImages": { "type": "array", "items": { "type": "string" } },
+        "category": { "type": "string" },
+        "isFeatured": { "type": "boolean" },
+        "description": { "type": "string" },
+        "sizes": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["name", "price", "stock", "mainImage", "category"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order details",
+      "type": "object",
+      "properties": {
+        "customerName": { "type": "string", "description": "Full name of the customer" },
+        "phoneNumber": { "type": "string", "description": "Phone number for delivery" },
+        "address": { "type": "string", "description": "Detailed shipping address" },
+        "items": { 
+          "type": "array", 
+          "description": "List of ordered items",
+          "items": { "type": "object" }
+        },
+        "totalPrice": { "type": "number", "description": "Total amount paid" },
+        "paymentMethod": { "type": "string", "enum": ["Cash", "InstaPay", "Vodafone Cash"], "description": "Method of payment" },
+        "walletInfo": { "type": "string", "description": "Wallet number or sender name for digital payments" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Order creation timestamp" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "shipped", "delivered"], "description": "Current status of the order" }
+      },
+      "required": ["customerName", "phoneNumber", "address", "items", "totalPrice", "paymentMethod", "createdAt"]
+    }
+  },
+  "firestore": {
+    "orders/{orderId}": {
+      "schema": "Order",
+      "description": "Store customer orders"
+    }
+  }
+}
